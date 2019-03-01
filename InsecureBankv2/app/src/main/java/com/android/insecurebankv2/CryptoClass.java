@@ -11,7 +11,9 @@ import java.security.spec.AlgorithmParameterSpec;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -55,6 +57,30 @@ public class CryptoClass {
         cipher.init(Cipher.ENCRYPT_MODE, newKey, ivSpec);
         return cipher.doFinal(textBytes);
     }
+
+    /*
+    The function that handles the aes256 encryption.
+    ivBytes: Initialization vector used by the encryption function
+    keyBytes: Key used as input by the encryption function
+    textBytes: Plaintext input to the encryption function
+    */
+    public static byte[] aes256encryptVariant(byte[] ivBytes, byte[] keyBytes, byte[] textBytes)
+            throws UnsupportedEncodingException,
+            NoSuchAlgorithmException,
+            NoSuchPaddingException,
+            InvalidKeyException,
+            InvalidAlgorithmParameterException,
+            IllegalBlockSizeException,
+            BadPaddingException {
+        AlgorithmParameterSpec ivSpec = new IvParameterSpec(ivBytes);
+        KeyGenerator keygen = KeyGenerator.getInstance("AES");
+        keygen.init(46);// CogniCrypt reports "First parameter (with value 46) should be any of {128, 192, 256}"
+        SecretKey key = keygen.generateKey();
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        cipher.init(Cipher.ENCRYPT_MODE, key);// CogniCrypt reports "Second parameter was not properly generatedKey"
+        return cipher.doFinal(textBytes);
+    }
+
 
     /*
 	The function that handles the aes256 decryption.
@@ -121,7 +147,8 @@ public class CryptoClass {
     public String aesEncryptedString(String theString) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
         byte[] keyBytes = key.getBytes("UTF-8");
         plainText = theString;
-        cipherData = CryptoClass.aes256encrypt(ivBytes, keyBytes, plainText.getBytes("UTF-8"));
+        //cipherData = CryptoClass.aes256encrypt(ivBytes, keyBytes, plainText.getBytes("UTF-8"));
+        cipherData = CryptoClass.aes256encryptVariant(ivBytes, keyBytes, plainText.getBytes("UTF-8"));
         cipherText = Base64.encodeToString(cipherData, Base64.DEFAULT);
         return cipherText;
     }
