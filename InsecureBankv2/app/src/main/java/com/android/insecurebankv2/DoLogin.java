@@ -8,11 +8,11 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.insecurebankv2.bankdroid.SimpleCrypto;
 import com.marcohc.toasteroid.Toasteroid;
 
 import org.apache.http.HttpResponse;
@@ -186,12 +186,19 @@ public class DoLogin extends Activity {
 			SharedPreferences.Editor editor = mySharedPreferences.edit();
 			rememberme_username = username;
 			rememberme_password = password;
-			String base64Username = new String(Base64.encodeToString(rememberme_username.getBytes(), 4));
-			CryptoClass crypt = new CryptoClass();;
-			superSecurePassword = crypt.aesEncryptedString(rememberme_password);
-			editor.putString("EncryptedUsername", base64Username);
-			editor.putString("superSecurePassword", superSecurePassword);
-			editor.commit();
+			try {
+				//Linghui: the next line for missuse injection
+				String encryptedUserName = new String(SimpleCrypto.encrypt(SimpleCrypto.defaultKey, rememberme_username));
+				CryptoClass crypt = new CryptoClass();
+				;
+				superSecurePassword = crypt.aesEncryptedString(rememberme_password);
+				editor.putString("EncryptedUsername", encryptedUserName);
+				editor.putString("superSecurePassword", superSecurePassword);
+				editor.commit();
+			}catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 
 		private String convertStreamToString(InputStream in ) throws IOException {

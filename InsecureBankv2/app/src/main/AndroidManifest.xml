@@ -87,6 +87,12 @@
             android:name=".bankdroid.ChooseLockPattern"
             android:label="@string/title_activity_choose_lock_pattern">
         </activity>
+        <activity android:name=".bankdroid.ChooseLockPatternTutorial"
+            android:label="ChooseLockPatternTutorial">
+        </activity>
+        <activity android:name=".bankdroid.ChooseLockPatternExample"
+            android:label="ChooseLockPatternExample">
+        </activity>
     </application>
 
 </manifest>

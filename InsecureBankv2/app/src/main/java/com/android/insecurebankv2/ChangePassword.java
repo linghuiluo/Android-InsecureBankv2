@@ -190,15 +190,6 @@ public class ChangePassword extends Activity {
 			 */
             nameValuePairs.add(new BasicNameValuePair("username", uname));
             nameValuePairs.add(new BasicNameValuePair("newpassword", changePassword_text.getText().toString()));
-            //Linghui: the next three line for missuse injection TODO: decrypt password for login
-            //try {
-            //	String key= SimpleCrypto.defaultKey;
-            //	String newpwd= changePassword_text.getText().toString();
-            //	nameValuePairs.add(new BasicNameValuePair("newpassword", SimpleCrypto.encrypt(key, newpwd)));
-            //}catch (Exception e)
-            //{
-            //	e.printStackTrace();
-            //}
             HttpResponse responseBody;
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             pattern = Pattern.compile(PASSWORD_PATTERN);

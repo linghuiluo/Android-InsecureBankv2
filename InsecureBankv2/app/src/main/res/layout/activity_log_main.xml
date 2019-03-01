@@ -4,12 +4,13 @@
 
     <TableRow android:layout_width="match_parent"
         android:gravity="center" android:layout_marginTop="20dp">
+
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_height="150dp"
-            android:layout_margin="20dp"
+            android:layout_height="93dp"
             android:layout_gravity="center"
-            android:src="@drawable/logo"/>
+            android:layout_margin="20dp"
+            android:src="@drawable/logo" />
     </TableRow>
 
     <TableRow
@@ -65,19 +66,6 @@
     </TableRow>
 
 
-    <TableRow android:paddingTop="10px" android:gravity="center">
-
-        <Button
-            android:id="@+id/button_CreateUser"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:layout_span="2"
-            android:text="Create User"
-            android:textColor="#890000"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-    </TableRow>
-
     <!--<TableRow  android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:paddingTop="10dp" android:gravity="center" android:paddingLeft="5dp" android:paddingRight="5dp">-->
@@ -90,6 +78,68 @@
             <!--android:textStyle="bold"-->
             <!--android:background="@drawable/roundbutton"/>-->
     <!--</TableRow>-->
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingTop="10px">
+
+        <Button
+            android:id="@+id/button_CreateUser"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:layout_span="2"
+            android:text="Create User"
+            android:textColor="#890000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow  android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp" android:gravity="center"
+        android:paddingLeft="5dp" android:paddingRight="5dp"></TableRow>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/button_fb_gb"
+            android:text="Sign In"
+            android:textAlignment="gravity"
+            android:textColor="#F5F5F5"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/pattern_button"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_fb_gb"
+            android:text="Set Lock Pattern"
+            android:textAlignment="gravity"
+            android:textColor="#F5F5F5"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
     <TableRow  android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp" android:gravity="center"
@@ -104,30 +154,5 @@
             android:background="@drawable/roundbutton"
             android:visibility="invisible"/>
     </TableRow>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Sign In"
-            android:id="@+id/login_button"
-            android:background="@drawable/button_fb_gb"
-            android:layout_gravity="bottom"
-            android:textAlignment="gravity"
-            android:textColor="#F5F5F5"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="5sp"
-            />
-    </RelativeLayout>
-
-
 
 </TableLayout>

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.insecurebankv2.bankdroid.ChooseLockPatternTutorial;
 import com.marcohc.toasteroid.Toasteroid;
 
 import java.io.UnsupportedEncodingException;
@@ -71,6 +72,15 @@ public class LoginActivity extends Activity {
             }
         });
 
+        Button pattern_button=(Button) findViewById(R.id.pattern_button);
+        pattern_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+               setLockPattern();
+            }
+        });
+
         try {
             fillData();
         } catch (UnsupportedEncodingException e) {
@@ -104,6 +114,15 @@ public class LoginActivity extends Activity {
         });
 
 	}
+
+    /**
+     *
+     * Inject "Set Lock Pattern" from DroidBank
+     */
+    private void setLockPattern() {
+        Intent i = new Intent(this, ChooseLockPatternTutorial.class);
+        startActivity(i);
+    }
 
     /*
     The function that allows the user to create new user credentials.

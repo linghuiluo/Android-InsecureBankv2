@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.insecurebankv2.bankdroid.SimpleCrypto;
 import com.marcohc.toasteroid.Toasteroid;
 
 import org.apache.http.HttpResponse;
@@ -51,7 +52,7 @@ public class DoTransfer extends Activity {
 
 	String result;
 	String passNormalized;
-	String usernameBase64ByteString;
+	String decryptedUserName;
 	BufferedReader reader;
 	//	The EditText that holds the from account number
 	EditText from;
@@ -132,7 +133,7 @@ public class DoTransfer extends Activity {
 			final String username = settings.getString("EncryptedUsername", null);
 			byte[] usernameBase64Byte = Base64.decode(username, Base64.DEFAULT);
 			try {
-				usernameBase64ByteString = new String(usernameBase64Byte, "UTF-8");
+				decryptedUserName = new String(usernameBase64Byte, "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -146,7 +147,7 @@ public class DoTransfer extends Activity {
 				e1.printStackTrace();
 			}
 			List < NameValuePair > nameValuePairs = new ArrayList < NameValuePair > (5);
-			nameValuePairs.add(new BasicNameValuePair("username", usernameBase64ByteString));
+			nameValuePairs.add(new BasicNameValuePair("username", decryptedUserName));
 			nameValuePairs.add(new BasicNameValuePair("password", passNormalized));
 			from = (EditText) findViewById(R.id.editText_from);
 			to = (EditText) findViewById(R.id.editText_to);
@@ -199,7 +200,7 @@ public class DoTransfer extends Activity {
 								final String status = new String("\nMessage:" + "Success" + " From:" + from.getText().toString() + " To:" + to.getText().toString() + " Amount:" + amount.getText().toString() + "\n");
 								try {
 									//	Captures the successful transaction status for Transaction history tracking
-									String MYFILE = Environment.getExternalStorageDirectory() + "/Statements_" + usernameBase64ByteString + ".html";
+									String MYFILE = Environment.getExternalStorageDirectory() + "/Statements_" + decryptedUserName + ".html";
 									BufferedWriter out2 = new BufferedWriter(new FileWriter(MYFILE, true));
 									out2.write(status);
                                     out2.write("<hr>");
@@ -218,7 +219,7 @@ public class DoTransfer extends Activity {
                             System.out.println("Message:" + "Failure" + " From:" + from.getText().toString() + " To:" + to.getText().toString() + " Amount:" + amount.getText().toString());
 							final String status = new String("\nMessage:" + "Failure" + " From:" + from.getText().toString() + " To:" + to.getText().toString() + " Amount:" + amount.getText().toString() + "\n");
 							//   Captures the failed transaction status for Transaction history tracking
-							String MYFILE = Environment.getExternalStorageDirectory() + "/Statements_" + usernameBase64ByteString + ".html";
+							String MYFILE = Environment.getExternalStorageDirectory() + "/Statements_" + decryptedUserName + ".html";
 							try {
 								BufferedWriter out2 = new BufferedWriter(new FileWriter(MYFILE, true));
 								out2.write(status);
@@ -262,11 +263,10 @@ public class DoTransfer extends Activity {
 			HttpPost httppost = new HttpPost(protocol + serverip + ":" + serverport + "/getaccounts");
 			SharedPreferences settings = getSharedPreferences(MYPREFS2, 0);
 			final String username = settings.getString("EncryptedUsername", null);
-			byte[] usernameBase64Byte = Base64.decode(username, Base64.DEFAULT);
-
 			try {
-				usernameBase64ByteString = new String(usernameBase64Byte, "UTF-8");
-			} catch (UnsupportedEncodingException e) {
+				//Linghui: the next line for missuse injection
+				decryptedUserName = SimpleCrypto.decrypt(SimpleCrypto.defaultKey,username);
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -281,7 +281,7 @@ public class DoTransfer extends Activity {
 			}
 			// Add your data
 			List < NameValuePair > nameValuePairs = new ArrayList < NameValuePair > (2);
-			nameValuePairs.add(new BasicNameValuePair("username", usernameBase64ByteString));
+			nameValuePairs.add(new BasicNameValuePair("username", decryptedUserName));
 			nameValuePairs.add(new BasicNameValuePair("password", passNormalized));
 			try {
 				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));

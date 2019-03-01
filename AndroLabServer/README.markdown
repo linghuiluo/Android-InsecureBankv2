@@ -4,10 +4,10 @@ AndroLab Back-end Server Readme
 This project is the python backend server for the Android InsecureBankv2 application which can be found at https://github.com/dineshshetty/Android-InsecureBankv2
 
 
-Python required libraries
+Python 2.7.15 required libraries
 -----
 
-Install the below libraries using: easy_install <libraryname>
+Install the below libraries using pip
 
 * flask
 * flask-sqlalchemy

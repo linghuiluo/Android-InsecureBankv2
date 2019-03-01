@@ -29,13 +29,13 @@ public class ConfirmLockPattern extends Activity {
      * The view will use the system-defined resource strings for any labels that
      * the caller does not supply.
      */
-    public static final String HEADER_TEXT = "com.liato.bankdroid.header";
+    public static final String HEADER_TEXT = "com.android.insecurebankv2.bankdroid.header";
 
-    public static final String FOOTER_TEXT = "com.liato.bankdroid.footer";
+    public static final String FOOTER_TEXT = "com.android.insecurebankv2.bankdroid.footer";
 
-    public static final String HEADER_WRONG_TEXT = "com.liato.bankdroid.header_wrong";
+    public static final String HEADER_WRONG_TEXT = "com.android.insecurebankv2.bankdroid.header_wrong";
 
-    public static final String FOOTER_WRONG_TEXT = "com.liato.bankdroid.footer_wrong";
+    public static final String FOOTER_WRONG_TEXT = "com.android.insecurebankv2.bankdroid.footer_wrong";
 
     // how long we wait to clear a wrong pattern
     private static final int WRONG_PATTERN_CLEAR_TIMEOUT_MS = 2000;
