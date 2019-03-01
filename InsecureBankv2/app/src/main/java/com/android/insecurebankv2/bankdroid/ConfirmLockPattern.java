@@ -218,7 +218,7 @@ public class ConfirmLockPattern extends Activity {
                     mFooterTextView.setText(R.string.lockpattern_need_to_unlock_wrong_footer);
                 }
 
-                mLockPatternView.setDisplayMode(LockPatternView.DisplayMode.Wrong);
+                mLockPatternView.setDisplayMode(DisplayMode.Wrong);
                 mLockPatternView.setEnabled(true);
                 mLockPatternView.enableInput();
                 break;

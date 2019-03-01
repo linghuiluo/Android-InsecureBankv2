@@ -25,7 +25,7 @@
     <string name="title_activity_exit">ExitActivity</string>
     <string name="action_kill">Exit Application</string>
     <string name="title_activity_confirm_lock_pattern">ConfirmLockPattern</string>
-
+    <string name="title_activity_choose_lock_pattern">ChooseLockPattern</string>
 
     <!-- Lock Pattern settings -->
     <!-- Unlock header -->

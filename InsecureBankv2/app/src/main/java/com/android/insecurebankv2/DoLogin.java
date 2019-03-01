@@ -85,7 +85,6 @@ public class DoLogin extends Activity {
             Intent setupServerdetails =new Intent(this,FilePrefActivity.class);
             startActivity(setupServerdetails);
             Toasteroid.show(this, "Server path/port not set!!", Toasteroid.STYLES.WARNING, Toasteroid.LENGTH_SHORT);
-
         }
 	}
 

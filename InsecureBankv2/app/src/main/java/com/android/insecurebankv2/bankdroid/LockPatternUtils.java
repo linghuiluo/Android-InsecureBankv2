@@ -163,7 +163,7 @@ public class LockPatternUtils {
             res[i] = (byte) (cell.getRow() * 3 + cell.getColumn());
         }
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            MessageDigest md = MessageDigest.getInstance("SHA-1"); //CogniCrypt reports "First parameter (with value "SHA-1") should be any of {SHA-256, SHA-384, SHA-512}"
             byte[] hash = md.digest(res);
             return hash;
         } catch (NoSuchAlgorithmException nsa) {

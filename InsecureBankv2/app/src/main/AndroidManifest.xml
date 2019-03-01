@@ -83,6 +83,10 @@
         <activity
             android:name=".bankdroid.ConfirmLockPattern"
             android:label="@string/title_activity_confirm_lock_pattern"></activity>
+        <activity
+            android:name=".bankdroid.ChooseLockPattern"
+            android:label="@string/title_activity_choose_lock_pattern">
+        </activity>
     </application>
 
 </manifest>
