@@ -74,6 +74,7 @@ public class CryptoClass {
             BadPaddingException {
         AlgorithmParameterSpec ivSpec = new IvParameterSpec(ivBytes);
         KeyGenerator keygen = KeyGenerator.getInstance("AES");
+        //Linghui: the following misuse will cause the app crash: System.err java.security.InvalidKeyException: Unsupported key size: 64 bytes at com.android.org.conscrypt.OpenSSLCipher$EVP_CIPHER$AES.checkSupportedKeySize(OpenSSLCipher.java:733)
         keygen.init(46);// CogniCrypt reports "First parameter (with value 46) should be any of {128, 192, 256}"
         SecretKey key = keygen.generateKey();
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
@@ -133,9 +134,9 @@ public class CryptoClass {
     */
     public String aesDeccryptedString(String theString) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
         byte[] keyBytes = key.getBytes("UTF-8");
-        //cipherData = CryptoClass.aes256decrypt(ivBytes, keyBytes, Base64.decode(theString.getBytes("UTF-8"), Base64.DEFAULT));
+        cipherData = CryptoClass.aes256decrypt(ivBytes, keyBytes, Base64.decode(theString.getBytes("UTF-8"), Base64.DEFAULT));
         //Linghui: the next line for missuse injection
-        cipherData = CryptoClass.aes256decryptVariant(ivBytes, keyBytes, Base64.decode(theString.getBytes("UTF-8"), Base64.DEFAULT));
+        //cipherData = CryptoClass.aes256decryptVariant(ivBytes, keyBytes, Base64.decode(theString.getBytes("UTF-8"), Base64.DEFAULT));
         plainText = new String(cipherData, "UTF-8");
         return plainText;
     }
@@ -148,9 +149,9 @@ public class CryptoClass {
     public String aesEncryptedString(String theString) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
         byte[] keyBytes = key.getBytes("UTF-8");
         plainText = theString;
-        //cipherData = CryptoClass.aes256encrypt(ivBytes, keyBytes, plainText.getBytes("UTF-8"));
+        cipherData = CryptoClass.aes256encrypt(ivBytes, keyBytes, plainText.getBytes("UTF-8"));
         //Linghui: the next line for missuse injection
-        cipherData = CryptoClass.aes256encryptVariant(ivBytes, keyBytes, plainText.getBytes("UTF-8"));
+        //cipherData = CryptoClass.aes256encryptVariant(ivBytes, keyBytes, plainText.getBytes("UTF-8"));
         cipherText = Base64.encodeToString(cipherData, Base64.DEFAULT);
         return cipherText;
     }
