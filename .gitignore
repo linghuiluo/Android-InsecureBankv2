@@ -123,3 +123,7 @@ captures/
 # Intellij
 *.iml
 .idea/workspace.xml
+
+*.xml
+
+InsecureBankv2/\.idea/caches/

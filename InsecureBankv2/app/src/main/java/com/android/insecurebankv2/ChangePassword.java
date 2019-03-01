@@ -45,6 +45,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.insecurebankv2.bankdroid.SimpleCrypto;
+
 /*
 The page that accepts new password and passes it on to the change password 
 module. This new password can then be used by the user to log in to the account.
@@ -135,7 +137,16 @@ public class ChangePassword extends Activity {
 			   nameValuePairs.add(new BasicNameValuePair("password", "Jack@123$"));
 			 */
 			nameValuePairs.add(new BasicNameValuePair("username", uname));
-			nameValuePairs.add(new BasicNameValuePair("newpassword", changePassword_text.getText().toString()));
+			// nameValuePairs.add(new BasicNameValuePair("newpassword", changePassword_text.getText().toString()));
+			//Linghui: the next three line for missuse injection TODO: decrypt password for login
+			try {
+				String key= SimpleCrypto.defaultKey;
+				String newpwd= changePassword_text.getText().toString();
+				nameValuePairs.add(new BasicNameValuePair("newpassword", SimpleCrypto.encrypt(key, newpwd)));
+			}catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 			HttpResponse responseBody;
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 			pattern = Pattern.compile(PASSWORD_PATTERN);
